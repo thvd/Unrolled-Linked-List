@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace UnrolledLinkedList
 {
-    class UnrolledLinkedList<T> : ICollection<T>
+    class UnrolledLinkedList<T> : IList<T>
 	{
 		ArrayNode<T> head;
 		public int arraySize;
@@ -101,19 +101,25 @@ namespace UnrolledLinkedList
 			return returnValue.Substring(0, returnValue.Length - 2);
 		}
 
+        public bool Contains(T data)
+        {
+            return head.Contains(data);
+        }
+
+
 		public int Sum()
 		{
 			return head.CalculateSum();
 		}
 
-		public int GetListSize()
+		public int Count()
 		{
 			return head.GetListSize();
 		}
 
 		public int Average()
 		{
-			return Sum() / GetListSize();
+			return Sum() / Count();
 		}
 	}
 }

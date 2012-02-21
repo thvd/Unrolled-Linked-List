@@ -9,13 +9,13 @@ namespace UnrolledLinkedList
 	{
 		static void Main (string[] args)
 		{
-			ICollection<int> list = new UnrolledLinkedList<int>(5);
+            IList<int> list = new UnrolledLinkedList<int>(5);
 
             for (int i = 0; i < 15; i++)
             {
                 list.Add(i);
             }
-			// test
+
 			Console.WriteLine(list.Print());
             Console.ReadLine();
 		}

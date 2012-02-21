@@ -9,8 +9,9 @@ namespace UnrolledLinkedList
 		void Remove(int index);
 		string Print();
 		void Clear();
+        bool Contains(T data);
 		int Sum();
-		int GetListSize();
+		int Count();
 		int Average();
 	}
 }

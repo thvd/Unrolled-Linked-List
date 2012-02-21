@@ -89,5 +89,21 @@ namespace UnrolledLinkedList
 
 			return size;
 		}
-	}
+
+        public bool Contains(T data)
+        {
+            bool returnValue = false;
+
+            if (next != null)
+                returnValue = next.Contains(data);
+
+            for (int i = 0; i < listSize; i++)
+            {
+                if (list[i].Equals(data))
+                    return true;
+            }
+
+            return returnValue;
+        }
+    }
 }
