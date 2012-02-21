@@ -1,8 +1,9 @@
 using System;
+using System.Collections.Generic;
 
 namespace UnrolledLinkedList
 {
-	class UnrolledLinkedList<T> : IList<T>
+    class UnrolledLinkedList<T> : ICollection<T>
 	{
 		ArrayNode<T> head;
 		public int arraySize;
@@ -15,76 +16,76 @@ namespace UnrolledLinkedList
 
 
 		//!//Add//!//
-		public void add(T data)
+		public void Add(T data)
 		{
 			if(head.next != null)
-				addToNextNode(head.next, data);
+				AddToNextNode(head.next, data);
 			else if(head.listSize == arraySize)
-				createNode(head, data);
+				CreateNode(head, data);
 			else
-				head.add(data);
+				head.Add(data);
 		}
 
-		private void addToNextNode(ArrayNode<T> node, T data)
+		private void AddToNextNode(ArrayNode<T> node, T data)
 		{
 			if(node.next != null)
-				addToNextNode(node.next, data);
+				AddToNextNode(node.next, data);
 			else if(node.listSize == arraySize)
-				createNode(node, data);
+				CreateNode(node, data);
 			else
-				node.add(data);
+				node.Add(data);
 		}
 
 		/// <summary>
 		/// Create new arrayNode
 		/// </summary>
-		private void createNode(ArrayNode<T> location, T data)
+		private void CreateNode(ArrayNode<T> location, T data)
 		{
 			ArrayNode<T > node = new ArrayNode<T>(arraySize);
 			location.next = node;
-			node.add(data);
+			node.Add(data);
 		}
 
 
 		//!//Insert//!//
-		public void insert(int index, T data)
+		public void Insert(int index, T data)
 		{
 			if(index < head.listSize)
-				head.insert(index, data, this);
+				head.Insert(index, data, this);
 			else
-				insertToIndexOfNode(head, index - head.listSize, data);
+				InsertToIndexOfNode(head, index - head.listSize, data);
 		}
 
-		private void insertToIndexOfNode(ArrayNode<T> node, int index, T data)
+		private void InsertToIndexOfNode(ArrayNode<T> node, int index, T data)
 		{
 			if(index < node.next.listSize)
-				node.next.insert(index, data, this);
+				node.next.Insert(index, data, this);
 			else
-				insertToIndexOfNode(node.next, index - node.next.listSize, data);
+				InsertToIndexOfNode(node.next, index - node.next.listSize, data);
 		}
 
 
 		//!//Remove//!//
-		public void remove(int index)
+		public void Remove(int index)
 		{
 			index -= 1;
 			if(index < head.listSize)
-				head.remove(index, this);
+				head.Remove(index, this);
 			else
-				removeIndexOfNode(head, index - head.listSize);
+				RemoveIndexOfNode(head, index - head.listSize);
 		}
 
-		private void removeIndexOfNode(ArrayNode<T> node, int index)
+		private void RemoveIndexOfNode(ArrayNode<T> node, int index)
 		{
 			if(index < node.next.listSize)
-				node.next.remove(index, this);
+				node.next.Remove(index, this);
 			else
-				removeIndexOfNode(node.next, index - node.next.listSize);
+				RemoveIndexOfNode(node.next, index - node.next.listSize);
 		}
 
 
 		//!//Clear//!//
-		public void clear()
+		public void Clear()
 		{
 			head = new ArrayNode<T>(arraySize);
 		}
@@ -94,25 +95,25 @@ namespace UnrolledLinkedList
 		/// returns all data in the list separated by a comma.
 		/// </summary>
 		/// <returns></returns>
-		public string print()
+		public string Print()
 		{
-			string returnValue = head.print();
+			string returnValue = head.Print();
 			return returnValue.Substring(0, returnValue.Length - 2);
 		}
 
-		public int sum()
+		public int Sum()
 		{
-			return head.calculateSum();
+			return head.CalculateSum();
 		}
 
-		public int getListSize()
+		public int GetListSize()
 		{
-			return head.getListSize();
+			return head.GetListSize();
 		}
 
-		public int average()
+		public int Average()
 		{
-			return sum() / getListSize();
+			return Sum() / GetListSize();
 		}
 	}
 }

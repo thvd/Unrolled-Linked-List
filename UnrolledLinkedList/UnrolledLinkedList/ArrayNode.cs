@@ -14,23 +14,23 @@ namespace UnrolledLinkedList
 			this.listSize = 0;
 		}
 
-		public void add(T data)
+		public void Add(T data)
 		{
 			list [listSize] = data;
 			listSize += 1;
 		}
 
-		public void insert(int index, T data, UnrolledLinkedList<T> completeList)
+		public void Insert(int index, T data, UnrolledLinkedList<T> completeList)
 		{
-			ArrayNode<T> newNode = createNode(completeList);
+			ArrayNode<T> newNode = CreateNode(completeList);
 			for(int i = index; i < listSize; i++) {
-				newNode.add(list [i]);
+				newNode.Add(list [i]);
 			}
 			list [index] = data;
 			listSize = index + 1;
 		}
 
-		public void remove(int index, UnrolledLinkedList<T> unrolledLinkedList)
+		public void Remove(int index, UnrolledLinkedList<T> unrolledLinkedList)
 		{
 			listSize -= 1;
 			for(int i = index + 1; i < listSize; i++) {
@@ -38,7 +38,7 @@ namespace UnrolledLinkedList
 			}
 		}
 
-		private ArrayNode<T> createNode(UnrolledLinkedList<T> completeList)
+		private ArrayNode<T> CreateNode(UnrolledLinkedList<T> completeList)
 		{
 			ArrayNode<T > node = new ArrayNode<T>(completeList.arraySize);
 			node.next = this.next;
@@ -51,7 +51,7 @@ namespace UnrolledLinkedList
 		/// returns sum of all integers in array
 		/// </summary>
 		/// <returns></returns>
-		public int calculateSum()
+		public int CalculateSum()
 		{
 			int returnValue = 0;
 			for(int i = 0; i < listSize; i++) {
@@ -59,7 +59,7 @@ namespace UnrolledLinkedList
 				returnValue += currentvalue;
 			}
 			if(next != null)
-				returnValue += next.calculateSum();
+				returnValue += next.CalculateSum();
 
 			return returnValue;
 		}
@@ -68,24 +68,24 @@ namespace UnrolledLinkedList
 		/// Create string with content of all next nodes.
 		/// </summary>
 		/// <returns></returns>
-		public string print()
+		public string Print()
 		{
 			string returnValue = "";
 			for(int i = 0; i < listSize; i++) {
 				returnValue += list [i] + ", ";
 			}
 			if(next != null)
-				returnValue += next.print();
+				returnValue += next.Print();
 
 			return returnValue;
 		}
 
-		public int getListSize()
+		public int GetListSize()
 		{
 			int size = listSize;
 
 			if(next != null)
-				size += next.getListSize();
+				size += next.GetListSize();
 
 			return size;
 		}

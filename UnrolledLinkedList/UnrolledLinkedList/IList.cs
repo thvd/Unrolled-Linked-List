@@ -4,13 +4,13 @@ namespace UnrolledLinkedList
 {
 	interface IList<T>
 	{
-		void add(T data);
-		void insert(int index, T data);
-		void remove(int index);
-		string print();
-		void clear();
-		int sum();
-		int getListSize();
-		int average();
+		void Add(T data);
+		void Insert(int index, T data);
+		void Remove(int index);
+		string Print();
+		void Clear();
+		int Sum();
+		int GetListSize();
+		int Average();
 	}
 }
