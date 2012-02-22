@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace UnrolledLinkedList
 {
-    class UnrolledLinkedList<T> : IList<T>
+    class UnrolledLinkedList<T> : MyList<T>
 	{
 		ArrayNode<T> head;
 		public int arraySize;
@@ -64,13 +64,23 @@ namespace UnrolledLinkedList
 				InsertToIndexOfNode(node.next, index - node.next.listSize, data);
 		}
 
+        //!//Remove//!//
+        public bool Remove(T data)
+        {
+            var dataFound = head.Remove(data);
 
-		//!//Remove//!//
-		public void Remove(int index)
+
+
+            return dataFound;
+        } 
+
+
+		//!//Remove an element of a specific index//!//
+		public void RemoveAt(int index)
 		{
 			index -= 1;
 			if(index < head.listSize)
-				head.Remove(index, this);
+				head.RemoveAt(index, this);
 			else
 				RemoveIndexOfNode(head, index - head.listSize);
 		}
@@ -78,7 +88,7 @@ namespace UnrolledLinkedList
 		private void RemoveIndexOfNode(ArrayNode<T> node, int index)
 		{
 			if(index < node.next.listSize)
-				node.next.Remove(index, this);
+				node.next.RemoveAt(index, this);
 			else
 				RemoveIndexOfNode(node.next, index - node.next.listSize);
 		}

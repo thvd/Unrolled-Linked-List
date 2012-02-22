@@ -30,7 +30,21 @@ namespace UnrolledLinkedList
 			listSize = index + 1;
 		}
 
-		public void Remove(int index, UnrolledLinkedList<T> unrolledLinkedList)
+        public bool Remove(T data)
+        {
+            var foundData = false;
+            for (int i = 0; i < listSize; i++)
+            {
+                if (list[i].Equals(data))
+                    return true;
+            }
+
+            foundData = next.Remove(data);
+
+            return foundData;
+        }
+
+		public void RemoveAt(int index, UnrolledLinkedList<T> unrolledLinkedList)
 		{
 			listSize -= 1;
 			for(int i = index + 1; i < listSize; i++) {
