@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace UnrolledLinkedList
 {
-    class UnrolledLinkedList<T> : MyList<T>
+    class UnrolledLinkedList<T> : IList<T>
 	{
-		ArrayNode<T> head;
-		public int arraySize;
+		private ArrayNode<T> head;
+		private int arraySize;
 
 		public UnrolledLinkedList(int size)
 		{
@@ -14,13 +14,20 @@ namespace UnrolledLinkedList
 			this.head = new ArrayNode<T>(this.arraySize);
 		}
 
+        public int Length 
+        {
+            get 
+            {
+                return this.arraySize;
+            }
+        }
 
 		//!//Add//!//
 		public void Add(T data)
 		{
 			if(head.next != null)
 				AddToNextNode(head.next, data);
-			else if(head.listSize == arraySize)
+			else if(head.pointer == arraySize)
 				CreateNode(head, data);
 			else
 				head.Add(data);
@@ -30,7 +37,7 @@ namespace UnrolledLinkedList
 		{
 			if(node.next != null)
 				AddToNextNode(node.next, data);
-			else if(node.listSize == arraySize)
+			else if(node.pointer == arraySize)
 				CreateNode(node, data);
 			else
 				node.Add(data);
@@ -50,26 +57,24 @@ namespace UnrolledLinkedList
 		//!//Insert//!//
 		public void Insert(int index, T data)
 		{
-			if(index < head.listSize)
+			if(index < head.pointer)
 				head.Insert(index, data, this);
 			else
-				InsertToIndexOfNode(head, index - head.listSize, data);
+				InsertToIndexOfNode(head, index - head.pointer, data);
 		}
 
 		private void InsertToIndexOfNode(ArrayNode<T> node, int index, T data)
 		{
-			if(index < node.next.listSize)
+			if(index < node.next.pointer)
 				node.next.Insert(index, data, this);
 			else
-				InsertToIndexOfNode(node.next, index - node.next.listSize, data);
+				InsertToIndexOfNode(node.next, index - node.next.pointer, data);
 		}
 
         //!//Remove//!//
         public bool Remove(T data)
         {
             var dataFound = head.Remove(data);
-
-
 
             return dataFound;
         } 
@@ -79,18 +84,18 @@ namespace UnrolledLinkedList
 		public void RemoveAt(int index)
 		{
 			index -= 1;
-			if(index < head.listSize)
+			if(index < head.pointer)
 				head.RemoveAt(index, this);
 			else
-				RemoveIndexOfNode(head, index - head.listSize);
+				RemoveIndexOfNode(head, index - head.pointer);
 		}
 
 		private void RemoveIndexOfNode(ArrayNode<T> node, int index)
 		{
-			if(index < node.next.listSize)
+			if(index < node.next.pointer)
 				node.next.RemoveAt(index, this);
 			else
-				RemoveIndexOfNode(node.next, index - node.next.listSize);
+				RemoveIndexOfNode(node.next, index - node.next.pointer);
 		}
 
 
@@ -107,7 +112,7 @@ namespace UnrolledLinkedList
 		/// <returns></returns>
 		public string Print()
 		{
-			string returnValue = head.Print();
+			string returnValue = head.ToString();
 			return returnValue.Substring(0, returnValue.Length - 2);
 		}
 
@@ -116,7 +121,6 @@ namespace UnrolledLinkedList
             return head.Contains(data);
         }
 
-
 		public int Sum()
 		{
 			return head.CalculateSum();
@@ -124,12 +128,55 @@ namespace UnrolledLinkedList
 
 		public int Count()
 		{
-			return head.GetListSize();
+			return head.GetPointer();
 		}
 
 		public int Average()
 		{
 			return Sum() / Count();
 		}
-	}
+
+        public int IndexOf(T item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public T this[int index]
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+
+        public void CopyTo(T[] array, int arrayIndex)
+        {
+            throw new NotImplementedException();
+        }
+
+        int ICollection<T>.Count
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public bool IsReadOnly
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

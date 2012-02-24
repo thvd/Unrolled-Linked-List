@@ -6,34 +6,37 @@ namespace UnrolledLinkedList
 	{
 		public ArrayNode<T> next;
 		public T[] list;
-		public int listSize;
+		public int pointer;
 
 		public ArrayNode(int size)
 		{
-			list = new T[size];
-			this.listSize = 0;
+			this.list = new T[size];
+			this.pointer = 0;
 		}
 
 		public void Add(T data)
 		{
-			list [listSize] = data;
-			listSize += 1;
+			this.list[pointer] = data;
+			this.pointer += 1;
 		}
 
 		public void Insert(int index, T data, UnrolledLinkedList<T> completeList)
 		{
 			ArrayNode<T> newNode = CreateNode(completeList);
-			for(int i = index; i < listSize; i++) {
-				newNode.Add(list [i]);
+			for (int i = index; i < pointer; i++) 
+            {
+				newNode.Add(list[i]);
 			}
-			list [index] = data;
-			listSize = index + 1;
+			list[index] = data;
+			pointer = index + 1;
 		}
 
         public bool Remove(T data)
         {
             var foundData = false;
-            for (int i = 0; i < listSize; i++)
+
+            //return Array.Exists(this.list, item => item.Equals(data));
+            for (int i = 0; i < pointer; i++)
             {
                 if (list[i].Equals(data))
                     return true;
@@ -46,15 +49,15 @@ namespace UnrolledLinkedList
 
 		public void RemoveAt(int index, UnrolledLinkedList<T> unrolledLinkedList)
 		{
-			listSize -= 1;
-			for(int i = index + 1; i < listSize; i++) {
-				list [i] = list [i + 1];
+			pointer -= 1;
+			for (int i = index + 1; i < pointer; i++) {
+				list[i] = list[i + 1];
 			}
 		}
 
 		private ArrayNode<T> CreateNode(UnrolledLinkedList<T> completeList)
 		{
-			ArrayNode<T > node = new ArrayNode<T>(completeList.arraySize);
+            ArrayNode<T> node = new ArrayNode<T>(completeList.Length);
 			node.next = this.next;
 			this.next = node;
 
@@ -68,8 +71,9 @@ namespace UnrolledLinkedList
 		public int CalculateSum()
 		{
 			int returnValue = 0;
-			for(int i = 0; i < listSize; i++) {
-				int currentvalue = int.Parse(list [i].ToString());
+			for (int i = 0; i < pointer; i++) 
+            {
+				int currentvalue = int.Parse(list[i].ToString());
 				returnValue += currentvalue;
 			}
 			if(next != null)
@@ -78,30 +82,29 @@ namespace UnrolledLinkedList
 			return returnValue;
 		}
 
-		/// <summary>
-		/// Create string with content of all next nodes.
-		/// </summary>
-		/// <returns></returns>
-		public string Print()
+        /// <summary>
+        /// Create string with content of all next nodes.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            T[] arrayWithoutNull = Array.FindAll(this.list, item => item != null);
+
+            string returnValue = String.Join(", ", arrayWithoutNull);
+
+            if (next != null)
+                returnValue += next.ToString();
+
+            return returnValue + ((next == null) 
+                ? "" 
+                : next.ToString());
+        }
+
+		public int GetPointer()
 		{
-			string returnValue = "";
-			for(int i = 0; i < listSize; i++) {
-				returnValue += list [i] + ", ";
-			}
-			if(next != null)
-				returnValue += next.Print();
-
-			return returnValue;
-		}
-
-		public int GetListSize()
-		{
-			int size = listSize;
-
-			if(next != null)
-				size += next.GetListSize();
-
-			return size;
+            return pointer + ((next == null) 
+                ? 0
+                : next.GetPointer());
 		}
 
         public bool Contains(T data)
@@ -111,11 +114,9 @@ namespace UnrolledLinkedList
             if (next != null)
                 returnValue = next.Contains(data);
 
-            for (int i = 0; i < listSize; i++)
-            {
-                if (list[i].Equals(data))
-                    return true;
-            }
+
+            if (Array.Exists(this.list, item => item.Equals(data)))
+                return true;
 
             return returnValue;
         }
