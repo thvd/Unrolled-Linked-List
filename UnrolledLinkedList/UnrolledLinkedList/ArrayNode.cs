@@ -120,5 +120,24 @@ namespace UnrolledLinkedList
 
             return returnValue;
         }
+
+        public int IndexOf(T data)
+        {
+            int foundIndex = -1;
+
+            if (next != null) 
+            {
+                foundIndex = next.IndexOf(data);
+            }
+
+            if (foundIndex >= 0) 
+            {
+                return foundIndex;
+            }
+
+            int selfIndex = Array.FindIndex(this.list, item => item.Equals(data));
+
+            return selfIndex;
+        }
     }
 }

@@ -35,7 +35,7 @@ namespace UnrolledLinkedList
 
 		private void AddToNextNode(ArrayNode<T> node, T data)
 		{
-			if(node.next != null)
+			if (node.next != null)
 				AddToNextNode(node.next, data);
 			else if(node.pointer == arraySize)
 				CreateNode(node, data);
@@ -48,7 +48,7 @@ namespace UnrolledLinkedList
 		/// </summary>
 		private void CreateNode(ArrayNode<T> location, T data)
 		{
-			ArrayNode<T > node = new ArrayNode<T>(arraySize);
+			ArrayNode<T> node = new ArrayNode<T>(arraySize);
 			location.next = node;
 			node.Add(data);
 		}
@@ -74,9 +74,7 @@ namespace UnrolledLinkedList
         //!//Remove//!//
         public bool Remove(T data)
         {
-            var dataFound = head.Remove(data);
-
-            return dataFound;
+            return head.Remove(data);
         } 
 
 
@@ -138,7 +136,7 @@ namespace UnrolledLinkedList
 
         public int IndexOf(T item)
         {
-            throw new NotImplementedException();
+            return head.IndexOf(item);
         }
 
         public T this[int index]
@@ -149,7 +147,7 @@ namespace UnrolledLinkedList
             }
             set
             {
-                throw new NotImplementedException();
+                this.Insert(index, value);
             }
         }
 
